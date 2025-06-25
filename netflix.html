@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Netflix Clone with Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+    }
+
+    /* LOGIN PAGE */
+    .login-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #000;
+    }
+
+    .login-box {
+      background: #222;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      width: 300px;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: red;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .home-page {
+      display: none;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background-color: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar img {
+      width: 100px;
+    }
+
+    .navbar button {
+      background-color: red;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .banner {
+      background-image: url('https://assets.nflxext.com/ffe/siteui/vlv3/8c4ecfcb-c87b-4f8a-bff3-50f7e7639db2/c9abf91f-d653-4a94-9582-6aa3c1c99985/IN-en-20240610-popsignuptwoweeks-perspective_alpha_website_medium.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 70px 30px;
+    }
+
+    .banner h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .banner p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+
+    .banner button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .row {
+      padding: 20px;
+    }
+
+    .row h2 {
+      margin-bottom: 10px;
+    }
+
+    .row__posters {
+      display: flex;
+      overflow-x: scroll;
+    }
+
+    .row__posters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .row__poster {
+      max-height: 200px;
+      object-fit: contain;
+      margin-right: 10px;
+      transition: transform 0.3s;
+    }
+
+    .row__poster:hover {
+      transform: scale(1.1);
+    }
+
+    @media screen and (max-width: 768px) {
+      .banner h1 {
+        font-size: 2rem;
+      }
+
+      .banner p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Page (Shown First) -->
+  <div class="login-page" id="loginPage">
+    <div class="login-box">
+      <h2>Sign In</h2>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button onclick="handleLogin()">Login</button>
+    </div>
+  </div>
+
+  <!-- Netflix Home Page -->
+  <div class="home-page" id="homePage">
+    <div class="navbar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" alt="Netflix Logo" />
+      <button onclick="backToLogin()">Sign In</button>
+    </div>
+
+    <header class="banner">
+      <h1>Unlimited movies, TV shows and more.</h1>
+      <p>Watch anywhere. Cancel anytime. Ready to watch? Enter your email to create or restart your membership.</p>
+      <button>Get Started</button>
+    </header>
+
+    <section class="row">
+      <h2>Trending Now</h2>
+      <div class="row__posters">
+        <img class="row__poster" src="https://image.tmdb.org/t/p/w200/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg" alt="" />
+        <img class="row__poster" src="https://image.tmdb.org/t/p/w200/pjeMs3yqRmFL3giJy4PMXWZTTPa.jpg" alt="" />
+        <img class="row__poster" src="https://image.tmdb.org/t/p/w200/6EdKBYkB1ssgGjc249ud1L55o8d.jpg" alt="" />
+        <img class="row__poster" src="https://image.tmdb.org/t/p/w200/f4aul3FyD3jv3v4bul1IrkWZvzq.jpg" alt="" />
+        <img class="row__poster" src="https://image.tmdb.org/t/p/w200/zfE0R94v1E8cuKAerbskfD3VfUt.jpg" alt="" />
+        <img class="row__poster" src="https://image.tmdb.org/t/p/w200/hE24GYddaxB9MVZl1CaiI86M3kp.jpg" alt="" />
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function handleLogin() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (email.trim() === "" || password.trim() === "") {
+        alert("Please enter both email and password.");
+      } else {
+        alert("Logged in as " + email);
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('homePage').style.display = 'block';
+      }
+    }
+
+    function backToLogin() {
+      document.getElementById('homePage').style.display = 'none';
+      document.getElementById('loginPage').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
